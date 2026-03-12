@@ -56,3 +56,37 @@ removeBtn.addEventListener("click", e => {
 		});
 	}
 });
+
+/* 
+    ? Challenge
+    * pull up your todo list project
+    * grab the typicode API link: https://jsonplaceholder.typicode.com/todos
+    * fetch and retrieve the data
+    * create an element for title data
+    * fill in the content of your li.textContent to hold the title
+    * ensure all of them appear within your todo list
+    * this will likely require looping over the data
+    
+    ! Extra - string interpolate title and completed. If completed, add a checkmark
+*/
+
+let endpoint = "https://jsonplaceholder.typicode.com/todos"
+async function getData(url) {
+	try {
+		let res = await fetch(url)
+		let d = await res.json()
+	
+		d.forEach(i => {
+			let li = document.createElement("li")
+			li.textContent = i.title
+			ul.appendChild(li)
+		})
+
+		
+	} catch(err) {
+		console.log(err)
+	}
+}
+
+getData(endpoint)
+
