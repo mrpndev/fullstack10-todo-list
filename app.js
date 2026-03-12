@@ -71,29 +71,17 @@ removeBtn.addEventListener("click", e => {
 */
 
 let endpoint = "https://jsonplaceholder.typicode.com/todos";
-async function getData(url) {
-	try {
-		let res = await fetch(url);
-		let d = await res.json();
-		return d
-	} catch (err) {
-		console.log(err);
-	}
+fetch(endpoint)
+	.then(res => res.json())
+	.then(data => render(data))
+	.catch(err => console.log(err))
+	
+	function render(data) {
+		if (data && data instanceof Array) {
+			data.forEach(i => {
+				let li = document.createElement("li");
+				li.textContent = i.title;
+				ul.appendChild(li);
+			});
+		}
 }
-
-function render(data) {
-	if (data && data instanceof Array) {
-		data.forEach(i => {
-			let li = document.createElement("li");
-			li.textContent = i.title;
-			ul.appendChild(li);
-		});
-	}
-}
-
-async function start() {
-	let data = await getData(endpoint)
-	render(data)
-}
-
-start()
